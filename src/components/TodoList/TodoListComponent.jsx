@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import TodoList from "./TodoList";
 import TodoInfos from "./TodoInfos";
 import TodoForm from "./TodoForm";
 import { v4 as uuidv4 } from "uuid";
 import TodoActions from "./TodoActions";
+
+
+export const TodoContext = createContext();
 
 const todosArr = [
   {
@@ -68,7 +71,12 @@ const TodoListComponent = () => {
   return (
     <>
       <TodoInfos todos={todos} />
-      <TodoList todos={todos} majTodos={majTodos} />
+      <TodoContext.Provider value ={[majTodos]}>
+
+      <TodoList todos={todos}/>
+
+      </TodoContext.Provider>
+     
       <TodoForm addTodo={addTodo} />
       <div>
         <TodoActions clearDone={clearDone} handlecheckAll={handlecheckAll} />
